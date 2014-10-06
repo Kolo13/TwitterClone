@@ -15,7 +15,7 @@
 		8B5FFC2819E3098A004C1495 /* TwitterCloneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5FFC2719E3098A004C1495 /* TwitterCloneTests.swift */; };
 		8B5FFC3619E309F2004C1495 /* HomeTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5FFC3519E309F2004C1495 /* HomeTimelineViewController.swift */; };
 		8B5FFC3819E31367004C1495 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5FFC3719E31367004C1495 /* Tweet.swift */; };
-		8B5FFC3C19E32F02004C1495 /* tweet.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B5FFC3B19E32F02004C1495 /* tweet.json */; };
+		8B5FFC3C19E32F02004C1495 /* Tweet.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B5FFC3B19E32F02004C1495 /* Tweet.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +41,7 @@
 		8B5FFC2719E3098A004C1495 /* TwitterCloneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCloneTests.swift; sourceTree = "<group>"; };
 		8B5FFC3519E309F2004C1495 /* HomeTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeTimelineViewController.swift; path = ../HomeTimelineViewController.swift; sourceTree = "<group>"; };
 		8B5FFC3719E31367004C1495 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
-		8B5FFC3B19E32F02004C1495 /* tweet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tweet.json; sourceTree = "<group>"; };
+		8B5FFC3B19E32F02004C1495 /* Tweet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Tweet.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,7 +140,7 @@
 		8B5FFC3419E309BB004C1495 /* Model Layer */ = {
 			isa = PBXGroup;
 			children = (
-				8B5FFC3B19E32F02004C1495 /* tweet.json */,
+				8B5FFC3B19E32F02004C1495 /* Tweet.json */,
 			);
 			name = "Model Layer";
 			sourceTree = "<group>";
@@ -228,7 +228,7 @@
 				8B5FFC1719E3098A004C1495 /* Main.storyboard in Resources */,
 				8B5FFC1C19E3098A004C1495 /* LaunchScreen.xib in Resources */,
 				8B5FFC1919E3098A004C1495 /* Images.xcassets in Resources */,
-				8B5FFC3C19E32F02004C1495 /* tweet.json in Resources */,
+				8B5FFC3C19E32F02004C1495 /* Tweet.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
