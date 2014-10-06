@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8BAF07C0-B1BF-45E1-BCA8-40D2C5E23C1F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TwitterClone</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B63BF084E81440E601716868A1B0E65F958463E4</key>
+		<string>https://github.com/Kolo13/TwitterClone.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TwitterClone.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B63BF084E81440E601716868A1B0E65F958463E4</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Kolo13/TwitterClone.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B63BF084E81440E601716868A1B0E65F958463E4</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B63BF084E81440E601716868A1B0E65F958463E4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TwitterClone</string>
+		</dict>
+	</array>
+</dict>
+</plist>
