@@ -17,7 +17,7 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
       
-        if let path = NSBundle.mainBundle().pathForResource("tweet", ofType: "json") {
+        if let path = NSBundle.mainBundle().pathForResource("Tweet", ofType: "json") {
        
           var error : NSError?
           let jsonData = NSData(contentsOfFile: path)
