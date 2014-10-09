@@ -7,13 +7,30 @@
 //
 
 import Foundation
+import UIKit
 
 class Tweet {
   
   var text : String
+  var userProfile : NSDictionary
+  var userImageString : String
+  var image : UIImage?
+  var userName : String
+  var numRetweets : Int
+  var userID : Int
+  var numFavorites :Int?
+  
   
   init (tweetInfo : NSDictionary) {
     self.text = tweetInfo["text"] as String
+    self.userProfile = tweetInfo["user"] as NSDictionary
+    self.userImageString = userProfile["profile_image_url"] as String
+    self.userName = userProfile["name"] as String
+    self.numRetweets = tweetInfo["retweet_count"] as Int
+    self.userID = tweetInfo["id"] as Int
+  
+    
+    
   }
   
   
@@ -27,6 +44,7 @@ class Tweet {
         if let tweetDictionary = JSONDictionary as? NSDictionary {
           var newTweet = Tweet(tweetInfo: tweetDictionary)
           
+          
           tweets.append(newTweet)
         }
       }
@@ -36,6 +54,15 @@ class Tweet {
     return nil
   }
   
+  class func parseJSONDataIntoDict(rawJSONData : NSData) -> NSDictionary? {
+    var error : NSError?
+    
+    if let twitDict = NSJSONSerialization.JSONObjectWithData(rawJSONData, options: nil, error: &error) as? NSDictionary {
+      return twitDict
+    }
+    return nil
+  }
+
 
 }
 

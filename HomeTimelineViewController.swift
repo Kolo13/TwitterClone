@@ -7,67 +7,107 @@
 //
 
 import UIKit
+import Accounts
+import Social
 
 class HomeTimelineViewController: UIViewController, UITableViewDataSource {
 
+  @IBOutlet weak var tableView: UITableView!
+
   
   var tweets : [Tweet]?
+  var secondTweets : [Tweet]?
+  var slectedTweet : Tweet?
+  var twitterAccount : ACAccount?
+  let networkController = NetworkController()
+ 
   
-  
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-        if let path = NSBundle.mainBundle().pathForResource("Tweet", ofType: "json") {
-       
-          var error : NSError?
-          let jsonData = NSData(contentsOfFile: path)
-        
-          self.tweets = Tweet.parseJSONDataIntoTweets(jsonData!)
-          self.tweets = self.tweets?.sorted({ (S1:Tweet , S2:Tweet) -> Bool in
-            return S1.text < S2.text
-          })
-         
-      }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    self.title = "Timeline"
+    
+    self.networkController.fetchHomeTimeline { (errorDescription, tweets) -> Void in
+      if errorDescription == nil {
+        self.tweets = tweets
+        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+          self.tableView.reloadData()
 
-        // Do any additional setup after loading the view.
+        })
+      }else{
+        println(errorDescription)
+      }
     }
-  
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if self.tweets != nil {
-      return self.tweets!.count
-    }else{
-      return 0
-      
-    }
+    
+       //self.networkController.fetchTwitterFavorites(    //
+    //  { (errorDescription, secondTweets) -> Void in
+    //  if errorDescription == nil {
+    //  self.tweets = tweets
+    //  NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+    //  self.tableView.reloadData()
+    //
+    //  })
+    //  }else{
+    //  println(errorDescription)
+    //  }
+    //  }
+    //}
+    //
+
   }
   
   
+
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+      if self.tweets != nil {
+        return self.tweets!.count
+      }else{
+        return 0
+      }
+    }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("Tweet_Cell", forIndexPath: indexPath) as UITableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("Tweet_Cell", forIndexPath: indexPath) as UserImageTableViewCell
     let tweet = self.tweets![indexPath.row]
-    cell.textLabel?.text = tweet.text
-    return cell
+    cell.twitterLabel.hidden = true
+    self.networkController.fetchTwitterFavorites(tweet.userID, completionHandler: { (errorDescription, numFavorites) -> Void in
+      tweet.numFavorites = numFavorites
+      
+      println(numFavorites!)
+    })
     
+    
+    
+    
+    
+
+    
+    if tweet.image != nil {
+      cell.twitterLabel.text = tweet.text
+      cell.twitterLabel.hidden = false
+
+      cell.twitterImage.image = tweet.image
+    } else {
+      networkController.loadImage(tweet, completion: { (image) -> Void in
+        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+          cell.twitterLabel.text = tweet.text
+          cell.twitterLabel.hidden = false
+          tweet.image = image
+          cell.twitterImage.image = image
+        })
+      })
+    }
+
+  return cell
   
   }
   
-  
-  
-     override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
 
 }
+

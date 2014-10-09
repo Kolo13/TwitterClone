@@ -16,6 +16,8 @@
 		8B5FFC3619E309F2004C1495 /* HomeTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5FFC3519E309F2004C1495 /* HomeTimelineViewController.swift */; };
 		8B5FFC3819E31367004C1495 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5FFC3719E31367004C1495 /* Tweet.swift */; };
 		8B5FFC3C19E32F02004C1495 /* Tweet.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B5FFC3B19E32F02004C1495 /* Tweet.json */; };
+		8BC3837E19E5B4BB00ED8B7C /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC3837D19E5B4BB00ED8B7C /* NetworkController.swift */; };
+		8BCC15EF19E4A36700FF5596 /* UserImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCC15EE19E4A36700FF5596 /* UserImageTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,8 @@
 		8B5FFC3519E309F2004C1495 /* HomeTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeTimelineViewController.swift; path = ../HomeTimelineViewController.swift; sourceTree = "<group>"; };
 		8B5FFC3719E31367004C1495 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		8B5FFC3B19E32F02004C1495 /* Tweet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Tweet.json; sourceTree = "<group>"; };
+		8BC3837D19E5B4BB00ED8B7C /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		8BCC15EE19E4A36700FF5596 /* UserImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserImageTableViewCell.swift; path = ../UserImageTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,11 +88,11 @@
 			isa = PBXGroup;
 			children = (
 				8B5FFC0E19E3098A004C1495 /* AppDelegate.swift */,
+				8B5FFC3319E309AB004C1495 /* Controller Layer */,
 				8B5FFC3419E309BB004C1495 /* Model Layer */,
 				8B5FFC3219E3099D004C1495 /* View Layer */,
 				8B5FFC1519E3098A004C1495 /* Main.storyboard */,
 				8B5FFC1819E3098A004C1495 /* Images.xcassets */,
-				8B5FFC3319E309AB004C1495 /* Controller Layer */,
 				8B5FFC1A19E3098A004C1495 /* LaunchScreen.xib */,
 				8B5FFC1019E3098A004C1495 /* TwitterClone.xcdatamodeld */,
 				8B5FFC0C19E3098A004C1495 /* Supporting Files */,
@@ -124,6 +128,7 @@
 		8B5FFC3219E3099D004C1495 /* View Layer */ = {
 			isa = PBXGroup;
 			children = (
+				8BCC15EE19E4A36700FF5596 /* UserImageTableViewCell.swift */,
 			);
 			name = "View Layer";
 			sourceTree = "<group>";
@@ -132,7 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				8B5FFC3519E309F2004C1495 /* HomeTimelineViewController.swift */,
-				8B5FFC3719E31367004C1495 /* Tweet.swift */,
+				8BC3837D19E5B4BB00ED8B7C /* NetworkController.swift */,
 			);
 			name = "Controller Layer";
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 		8B5FFC3419E309BB004C1495 /* Model Layer */ = {
 			isa = PBXGroup;
 			children = (
+				8B5FFC3719E31367004C1495 /* Tweet.swift */,
 				8B5FFC3B19E32F02004C1495 /* Tweet.json */,
 			);
 			name = "Model Layer";
@@ -247,6 +253,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B5FFC0F19E3098A004C1495 /* AppDelegate.swift in Sources */,
+				8BCC15EF19E4A36700FF5596 /* UserImageTableViewCell.swift in Sources */,
+				8BC3837E19E5B4BB00ED8B7C /* NetworkController.swift in Sources */,
 				8B5FFC3619E309F2004C1495 /* HomeTimelineViewController.swift in Sources */,
 				8B5FFC1219E3098A004C1495 /* TwitterClone.xcdatamodeld in Sources */,
 				8B5FFC3819E31367004C1495 /* Tweet.swift in Sources */,
@@ -375,6 +383,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TwitterClone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -385,6 +394,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TwitterClone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -403,6 +413,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = TwitterCloneTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TwitterClone.app/TwitterClone";
@@ -418,6 +429,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = TwitterCloneTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TwitterClone.app/TwitterClone";
