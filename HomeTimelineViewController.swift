@@ -19,26 +19,46 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
   var tweets : [Tweet]?
   var twitterAccount : ACAccount?
   let networkController = NetworkController()
-  var userName: String?
+  var screenName : String?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.title = "Timeline"
+    self.title = screenName?
     
     self.tableView.registerNib(UINib(nibName: "UserImageTableViewCell", bundle: NSBundle.mainBundle())!, forCellReuseIdentifier: "TWEET_CELL")
   
-    self.networkController.fetchHomeTimeline { (errorDescription, tweets) -> Void in
-      if errorDescription == nil {
+  
+    
+    if screenName != nil {
+      
+    
+      self.networkController.fetchUserTimeline(self.screenName!, { (errorDescription, tweets) -> Void in
         self.tweets = tweets
         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
           self.tableView.reloadData()
+        
+                })
 
-        })
-      }else{
-        println(errorDescription)
+      
+    })
+    }else{
+      
+      self.networkController.fetchHomeTimeline { (errorDescription, tweets) -> Void in
+        if errorDescription == nil {
+          self.tweets = tweets
+          NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+            self.tableView.reloadData()
+            
+          })
+        }else{
+          println(errorDescription)
+        }
       }
+      
+      
     }
+    
   
   }
   
@@ -57,14 +77,7 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("TWEET_CELL", forIndexPath: indexPath) as UserImageTableViewCell
     let tweet = self.tweets![indexPath.row]
-     cell.twitterLabel.hidden = true
-    self.networkController.fetchTwitterFavorites(tweet.userID, completionHandler: { (errorDescription, numFavorites) -> Void in
-      tweet.numFavorites = numFavorites
-    })
-    
-    
-    
-
+    cell.twitterLabel.hidden = true
     
     if tweet.image != nil {
       cell.twitterLabel.text = tweet.text

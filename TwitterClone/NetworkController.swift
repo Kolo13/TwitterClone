@@ -15,86 +15,59 @@ class NetworkController {
   
   var twitterAccount :  ACAccount?
   let imageQueue = NSOperationQueue()
-  var url = NSURL(string:"https://api.twitter.com/1.1/statuses/home_timeline.json")
-  
+ 
   init(){
     
     self.imageQueue.maxConcurrentOperationCount = 6
     
   }
   
-  func fetchUserTimeline(userName : String, completionHandler : (errorDescription: String?, tweets : [Tweet]?) -> Void) {
+  func fetchUserTimeline(screenName :String?, completionHandler : (errorDescription: String?, tweets : [Tweet]?) -> Void) {
     
-    let url = NSURL(string:"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=\(userName)")
-    let twitterRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: nil)
+    let accountStore = ACAccountStore()
+    let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
     
-    twitterRequest.account = self.twitterAccount
-    
-
-    
-    twitterRequest.performRequestWithHandler({ (data, httpResponse, error) -> Void in
-    
-    switch httpResponse.statusCode {
-    
-    case 200...299:
-    let tweets = Tweet.parseJSONDataIntoTweets(data)
- 
-    
-    completionHandler(errorDescription: nil, tweets: tweets)
-    
-    println("This is good----ID")
-    
-    case 400...499:
-    completionHandler(errorDescription: "Client fault", tweets: nil)
-    
-    case 500...599:
-    completionHandler(errorDescription: "Server fault", tweets: nil)
-    
-    default:
-    println("Something")
-    }
-    })
-
-    
-  }
-  
-  
-  
-  
-  func fetchTwitterFavorites(tweetID : Int, completionHandler : (errorDescription: String?, numFavorites : Int?) -> Void) {
-    
-
-    let url = NSURL(string: "https://api.twitter.com/1.1/statuses/show.json?id=\(tweetID)")
-
-    
-    let twitterRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: nil)
-    twitterRequest.account = self.twitterAccount
-    
-    twitterRequest.performRequestWithHandler({ (data, httpResponse, error) -> Void in
+    accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (granted: Bool, error : NSError!) -> Void in
       
-      switch httpResponse.statusCode {
+      if granted {
+        let accounts = accountStore.accountsWithAccountType(accountType)
+        self.twitterAccount = accounts.first as ACAccount?
         
-      case 200...299:
-        if let userDict = Tweet.parseJSONDataIntoDict(data) {
-          var favorites : Int = userDict["favorite_count"] as Int
+        
+       
+        let url = NSURL(string:"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=\(screenName!)")!
+   
+        let twitterRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: nil)
+        twitterRequest.account = self.twitterAccount
+        
+        twitterRequest.performRequestWithHandler({ (data, httpResponse, error) -> Void in
           
-          completionHandler(errorDescription: nil, numFavorites: favorites)
-          
-          println("This is good----ID")
-        }
-      case 400...499:
-        completionHandler(errorDescription: "Client fault", numFavorites: nil)
-        
-      case 500...599:
-        completionHandler(errorDescription: "Server fault", numFavorites: nil)
-        
-      default:
-        println("Something")
+          switch httpResponse.statusCode {
+            
+          case 200...299:
+            let tweets = Tweet.parseJSONDataIntoTweets(data)
+            completionHandler(errorDescription: nil, tweets: tweets)
+            println("This is good")
+            
+          case 400...499:
+            completionHandler(errorDescription: "Client fault", tweets: nil)
+            
+          case 500...599:
+            completionHandler(errorDescription: "Server fault", tweets: nil)
+            
+          default:
+            println("Something")
+          }
+        })
       }
-    })
-    
-    
+    }
   }
+  
+  
+  
+  
+  
+ 
   
   func fetchHomeTimeline( completionHandler : (errorDescription: String?, tweets : [Tweet]?) -> Void) {
     
@@ -109,17 +82,13 @@ class NetworkController {
         let accounts = accountStore.accountsWithAccountType(accountType)
         self.twitterAccount = accounts.first as ACAccount?
         
-        //let url = NSURL(string:"https://api.twitter.com/1.1/statuses/home_timeline.json")
-//        let url = NSURL(string:"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=wired")
-//        
-//        
-        let twitterRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: self.url, parameters: nil)
+        let url = NSURL(string:"https://api.twitter.com/1.1/statuses/home_timeline.json")
+       
+        let twitterRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: nil)
         twitterRequest.account = self.twitterAccount
         
         twitterRequest.performRequestWithHandler({ (data, httpResponse, error) -> Void in
           
-          //println(httpResponse.statusCode)
-    
           switch httpResponse.statusCode {
             
             case 200...299:

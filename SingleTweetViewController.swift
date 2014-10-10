@@ -15,6 +15,7 @@ class SingleTweetViewController: UIViewController {
   @IBAction func SingleTweetViewControllerButton(sender: UIButton) {
     
     let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("HOME_VC") as HomeTimelineViewController
+    newVC.screenName = selectedTweet?.screenName
     self.navigationController?.pushViewController(newVC, animated: true)
 
   }

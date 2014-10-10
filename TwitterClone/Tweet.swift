@@ -19,7 +19,8 @@ class Tweet {
   var userName : String
   var numRetweets : Int
   var userID : Int
-  var numFavorites :Int?
+  var numFavorites : Int
+  var screenName : String
   
   
   init (tweetInfo : NSDictionary) {
@@ -29,6 +30,8 @@ class Tweet {
     self.userName = userProfile["name"] as String
     self.numRetweets = tweetInfo["retweet_count"] as Int
     self.userID = tweetInfo["id"] as Int
+    self.screenName = userProfile["screen_name"] as String
+    self.numFavorites = tweetInfo["favorite_count"] as Int
   
     
     
@@ -40,7 +43,6 @@ class Tweet {
     if let JSONArray = NSJSONSerialization.JSONObjectWithData(rawJSONData, options: nil, error: &error) as? NSArray {
     
       var tweets = [Tweet]()
-      
       for JSONDictionary in JSONArray {
         if let tweetDictionary = JSONDictionary as? NSDictionary {
           var newTweet = Tweet(tweetInfo: tweetDictionary)
