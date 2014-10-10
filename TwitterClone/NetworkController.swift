@@ -15,11 +15,51 @@ class NetworkController {
   
   var twitterAccount :  ACAccount?
   let imageQueue = NSOperationQueue()
-
+  var url = NSURL(string:"https://api.twitter.com/1.1/statuses/home_timeline.json")
+  
   init(){
+    
     self.imageQueue.maxConcurrentOperationCount = 6
     
   }
+  
+  func fetchUserTimeline(userName : String, completionHandler : (errorDescription: String?, tweets : [Tweet]?) -> Void) {
+    
+    let url = NSURL(string:"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=\(userName)")
+    let twitterRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: nil)
+    
+    twitterRequest.account = self.twitterAccount
+    
+
+    
+    twitterRequest.performRequestWithHandler({ (data, httpResponse, error) -> Void in
+    
+    switch httpResponse.statusCode {
+    
+    case 200...299:
+    let tweets = Tweet.parseJSONDataIntoTweets(data)
+ 
+    
+    completionHandler(errorDescription: nil, tweets: tweets)
+    
+    println("This is good----ID")
+    
+    case 400...499:
+    completionHandler(errorDescription: "Client fault", tweets: nil)
+    
+    case 500...599:
+    completionHandler(errorDescription: "Server fault", tweets: nil)
+    
+    default:
+    println("Something")
+    }
+    })
+
+    
+  }
+  
+  
+  
   
   func fetchTwitterFavorites(tweetID : Int, completionHandler : (errorDescription: String?, numFavorites : Int?) -> Void) {
     
@@ -70,10 +110,10 @@ class NetworkController {
         self.twitterAccount = accounts.first as ACAccount?
         
         //let url = NSURL(string:"https://api.twitter.com/1.1/statuses/home_timeline.json")
-        let url = NSURL(string:"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=wired")
-        
-        
-        let twitterRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: nil)
+//        let url = NSURL(string:"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=wired")
+//        
+//        
+        let twitterRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: self.url, parameters: nil)
         twitterRequest.account = self.twitterAccount
         
         twitterRequest.performRequestWithHandler({ (data, httpResponse, error) -> Void in

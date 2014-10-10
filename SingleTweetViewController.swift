@@ -12,14 +12,22 @@ class SingleTweetViewController: UIViewController {
   
   var selectedTweet : Tweet?
 
+  @IBAction func SingleTweetViewControllerButton(sender: UIButton) {
+    
+    let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("HOME_VC") as HomeTimelineViewController
+    self.navigationController?.pushViewController(newVC, animated: true)
+
+  }
+
   @IBOutlet weak var singleTweetImage: UIImageView!
   @IBOutlet weak var singleTweetLabel: UILabel!
   @IBOutlet weak var singleTweetRetweetLabel: UILabel!
   @IBOutlet weak var singleTweetFavoritedLabel: UILabel!
 
-    override func viewDidLoad() {
+       override func viewDidLoad() {
         super.viewDidLoad()
       singleTweetImage.image = selectedTweet?.image
+      
       
 
         // Do any additional setup after loading the view.

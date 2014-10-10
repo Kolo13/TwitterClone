@@ -13,18 +13,13 @@ import Social
 class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
   @IBOutlet weak var tableView: UITableView!
-  @IBAction func pushSingleTweetVC(sender: AnyObject) {
-    
-    
-
-    
-  }
+ 
 
   
   var tweets : [Tweet]?
   var twitterAccount : ACAccount?
   let networkController = NetworkController()
- 
+  var userName: String?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,8 +28,6 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
     
     self.tableView.registerNib(UINib(nibName: "UserImageTableViewCell", bundle: NSBundle.mainBundle())!, forCellReuseIdentifier: "TWEET_CELL")
   
-    
-    
     self.networkController.fetchHomeTimeline { (errorDescription, tweets) -> Void in
       if errorDescription == nil {
         self.tweets = tweets
