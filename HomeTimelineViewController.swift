@@ -10,14 +10,18 @@ import UIKit
 import Accounts
 import Social
 
-class HomeTimelineViewController: UIViewController, UITableViewDataSource {
+class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
   @IBOutlet weak var tableView: UITableView!
+  @IBAction func pushSingleTweetVC(sender: AnyObject) {
+    
+    
+
+    
+  }
 
   
   var tweets : [Tweet]?
-  var secondTweets : [Tweet]?
-  var slectedTweet : Tweet?
   var twitterAccount : ACAccount?
   let networkController = NetworkController()
  
@@ -26,6 +30,10 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource {
     super.viewDidLoad()
     
     self.title = "Timeline"
+    
+    self.tableView.registerNib(UINib(nibName: "UserImageTableViewCell", bundle: NSBundle.mainBundle())!, forCellReuseIdentifier: "TWEET_CELL")
+  
+    
     
     self.networkController.fetchHomeTimeline { (errorDescription, tweets) -> Void in
       if errorDescription == nil {
@@ -38,22 +46,7 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource {
         println(errorDescription)
       }
     }
-    
-       //self.networkController.fetchTwitterFavorites(    //
-    //  { (errorDescription, secondTweets) -> Void in
-    //  if errorDescription == nil {
-    //  self.tweets = tweets
-    //  NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-    //  self.tableView.reloadData()
-    //
-    //  })
-    //  }else{
-    //  println(errorDescription)
-    //  }
-    //  }
-    //}
-    //
-
+  
   }
   
   
@@ -69,16 +62,12 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource {
     }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("Tweet_Cell", forIndexPath: indexPath) as UserImageTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("TWEET_CELL", forIndexPath: indexPath) as UserImageTableViewCell
     let tweet = self.tweets![indexPath.row]
-    cell.twitterLabel.hidden = true
+     cell.twitterLabel.hidden = true
     self.networkController.fetchTwitterFavorites(tweet.userID, completionHandler: { (errorDescription, numFavorites) -> Void in
       tweet.numFavorites = numFavorites
-      
-      println(numFavorites!)
     })
-    
-    
     
     
     
@@ -102,6 +91,12 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource {
 
   return cell
   
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("SINGLE_VC") as SingleTweetViewController
+      newVC.selectedTweet = self.tweets?[indexPath.row]
+      self.navigationController?.pushViewController(newVC, animated: true)
   }
   
   override func didReceiveMemoryWarning() {

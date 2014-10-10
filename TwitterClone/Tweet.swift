@@ -15,6 +15,7 @@ class Tweet {
   var userProfile : NSDictionary
   var userImageString : String
   var image : UIImage?
+  var avatarImage : UIImage?
   var userName : String
   var numRetweets : Int
   var userID : Int

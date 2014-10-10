@@ -14,8 +14,11 @@ import Social
 class NetworkController {
   
   var twitterAccount :  ACAccount?
+  let imageQueue = NSOperationQueue()
 
   init(){
+    self.imageQueue.maxConcurrentOperationCount = 6
+    
   }
   
   func fetchTwitterFavorites(tweetID : Int, completionHandler : (errorDescription: String?, numFavorites : Int?) -> Void) {
@@ -33,10 +36,11 @@ class NetworkController {
         
       case 200...299:
         if let userDict = Tweet.parseJSONDataIntoDict(data) {
-          println(userDict)
           var favorites : Int = userDict["favorite_count"] as Int
-        completionHandler(errorDescription: nil, numFavorites: favorites)
-        println("This is good----ID")
+          
+          completionHandler(errorDescription: nil, numFavorites: favorites)
+          
+          println("This is good----ID")
         }
       case 400...499:
         completionHandler(errorDescription: "Client fault", numFavorites: nil)
@@ -65,7 +69,8 @@ class NetworkController {
         let accounts = accountStore.accountsWithAccountType(accountType)
         self.twitterAccount = accounts.first as ACAccount?
         
-        let url = NSURL(string:"https://api.twitter.com/1.1/statuses/home_timeline.json")
+        //let url = NSURL(string:"https://api.twitter.com/1.1/statuses/home_timeline.json")
+        let url = NSURL(string:"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=wired")
         
         
         let twitterRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: nil)
@@ -73,7 +78,7 @@ class NetworkController {
         
         twitterRequest.performRequestWithHandler({ (data, httpResponse, error) -> Void in
           
-          println(httpResponse.statusCode)
+          //println(httpResponse.statusCode)
     
           switch httpResponse.statusCode {
             
@@ -116,5 +121,17 @@ class NetworkController {
         }
     
       }
-
+  func downloadUserImageForTweet(tweet : Tweet, completionHandler : (image : UIImage) -> (Void)) {
+    
+    let url = NSURL(string: tweet.userImageString)
+    let imageData = NSData(contentsOfURL: url!)
+    
+    
+    //jump back on the main queu
+//    NSOperationQueue.mainQueue()
+    
+  }
+  
+  
+  
 }
