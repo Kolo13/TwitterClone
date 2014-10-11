@@ -34,6 +34,7 @@ class NetworkController {
         self.twitterAccount = accounts.first as ACAccount?
         
         
+        
        
         let url = NSURL(string:"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=\(screenName!)")!
    
@@ -77,11 +78,12 @@ class NetworkController {
     let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
     
     accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (granted: Bool, error : NSError!) -> Void in
-      
+
       if granted {
         let accounts = accountStore.accountsWithAccountType(accountType)
         self.twitterAccount = accounts.first as ACAccount?
-        
+        println(accounts.isEmpty)
+
         let url = NSURL(string:"https://api.twitter.com/1.1/statuses/home_timeline.json")
        
         let twitterRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: nil)

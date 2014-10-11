@@ -17,7 +17,6 @@
 		8B5FFC3819E31367004C1495 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5FFC3719E31367004C1495 /* Tweet.swift */; };
 		8B5FFC3C19E32F02004C1495 /* Tweet.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B5FFC3B19E32F02004C1495 /* Tweet.json */; };
 		8B888DDF19E71ABD007511EC /* UserImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B888DDE19E71ABD007511EC /* UserImageTableViewCell.xib */; };
-		8B888DE719E74505007511EC /* STTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B888DE619E74505007511EC /* STTableViewCell.swift */; };
 		8B888DEA19E7495F007511EC /* SingleTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B888DE819E7495F007511EC /* SingleTweetViewController.swift */; };
 		8B888DEB19E7495F007511EC /* SingleTweetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B888DE919E7495F007511EC /* SingleTweetViewController.xib */; };
 		8B888DEE19E75A30007511EC /* UserTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B888DEC19E75A30007511EC /* UserTweetViewController.swift */; };
@@ -51,7 +50,6 @@
 		8B5FFC3719E31367004C1495 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		8B5FFC3B19E32F02004C1495 /* Tweet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Tweet.json; sourceTree = "<group>"; };
 		8B888DDE19E71ABD007511EC /* UserImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = UserImageTableViewCell.xib; path = ../UserImageTableViewCell.xib; sourceTree = "<group>"; };
-		8B888DE619E74505007511EC /* STTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTableViewCell.swift; sourceTree = "<group>"; };
 		8B888DE819E7495F007511EC /* SingleTweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleTweetViewController.swift; path = ../SingleTweetViewController.swift; sourceTree = "<group>"; };
 		8B888DE919E7495F007511EC /* SingleTweetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SingleTweetViewController.xib; path = ../SingleTweetViewController.xib; sourceTree = "<group>"; };
 		8B888DEC19E75A30007511EC /* UserTweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTweetViewController.swift; sourceTree = "<group>"; };
@@ -100,12 +98,10 @@
 			isa = PBXGroup;
 			children = (
 				8B5FFC0E19E3098A004C1495 /* AppDelegate.swift */,
+				8B5FFC1519E3098A004C1495 /* Main.storyboard */,
 				8B5FFC3319E309AB004C1495 /* Controller Layer */,
 				8B5FFC3419E309BB004C1495 /* Model Layer */,
 				8B5FFC3219E3099D004C1495 /* View Layer */,
-				8B5FFC1519E3098A004C1495 /* Main.storyboard */,
-				8B888DEC19E75A30007511EC /* UserTweetViewController.swift */,
-				8B888DED19E75A30007511EC /* UserTweetViewController.xib */,
 				8B5FFC1819E3098A004C1495 /* Images.xcassets */,
 				8B5FFC1A19E3098A004C1495 /* LaunchScreen.xib */,
 				8B5FFC1019E3098A004C1495 /* TwitterClone.xcdatamodeld */,
@@ -144,6 +140,8 @@
 			children = (
 				8B888DE819E7495F007511EC /* SingleTweetViewController.swift */,
 				8B888DE919E7495F007511EC /* SingleTweetViewController.xib */,
+				8B888DEC19E75A30007511EC /* UserTweetViewController.swift */,
+				8B888DED19E75A30007511EC /* UserTweetViewController.xib */,
 				8BCC15EE19E4A36700FF5596 /* UserImageTableViewCell.swift */,
 				8B888DDE19E71ABD007511EC /* UserImageTableViewCell.xib */,
 			);
@@ -154,7 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				8B5FFC3519E309F2004C1495 /* HomeTimelineViewController.swift */,
-				8B888DE619E74505007511EC /* STTableViewCell.swift */,
 				8BC3837D19E5B4BB00ED8B7C /* NetworkController.swift */,
 			);
 			name = "Controller Layer";
@@ -275,7 +272,6 @@
 			files = (
 				8B5FFC0F19E3098A004C1495 /* AppDelegate.swift in Sources */,
 				8BCC15EF19E4A36700FF5596 /* UserImageTableViewCell.swift in Sources */,
-				8B888DE719E74505007511EC /* STTableViewCell.swift in Sources */,
 				8BC3837E19E5B4BB00ED8B7C /* NetworkController.swift in Sources */,
 				8B888DEA19E7495F007511EC /* SingleTweetViewController.swift in Sources */,
 				8B5FFC3619E309F2004C1495 /* HomeTimelineViewController.swift in Sources */,

@@ -12,6 +12,8 @@ import Social
 
 class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+  @IBOutlet weak var headerNameLabel: UILabel!
+  @IBOutlet weak var headerPic: UIView!
   @IBOutlet weak var tableView: UITableView!
  
 
@@ -20,11 +22,10 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
   var twitterAccount : ACAccount?
   let networkController = NetworkController()
   var screenName : String?
+  var headerName : String?
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    self.title = screenName?
     
     self.tableView.registerNib(UINib(nibName: "UserImageTableViewCell", bundle: NSBundle.mainBundle())!, forCellReuseIdentifier: "TWEET_CELL")
   
@@ -36,6 +37,7 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
       self.networkController.fetchUserTimeline(self.screenName!, { (errorDescription, tweets) -> Void in
         self.tweets = tweets
         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+          self.headerNameLabel.text = self.headerName!
           self.tableView.reloadData()
         
                 })
@@ -47,7 +49,10 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
       self.networkController.fetchHomeTimeline { (errorDescription, tweets) -> Void in
         if errorDescription == nil {
           self.tweets = tweets
+          
+         
           NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+             self.headerNameLabel.text = "Home"
             self.tableView.reloadData()
             
           })
@@ -91,6 +96,7 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
           cell.twitterLabel.hidden = false
           tweet.image = image
           cell.twitterImage.image = image
+          
         })
       })
     }

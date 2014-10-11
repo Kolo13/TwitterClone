@@ -16,6 +16,7 @@ class SingleTweetViewController: UIViewController {
     
     let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("HOME_VC") as HomeTimelineViewController
     newVC.screenName = selectedTweet?.screenName
+    newVC.headerName = selectedTweet?.userName
     self.navigationController?.pushViewController(newVC, animated: true)
 
   }
