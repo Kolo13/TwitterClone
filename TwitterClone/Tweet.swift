@@ -48,15 +48,5 @@ class Tweet {
     }
     return nil
   }
-  
-  class func parseJSONDataIntoDict(rawJSONData : NSData) -> NSDictionary? {
-    var error : NSError?
-    
-    if let twitDict = NSJSONSerialization.JSONObjectWithData(rawJSONData, options: nil, error: &error) as? NSDictionary {
-      return twitDict
-    }
-    return nil
-  }
-
 }
 

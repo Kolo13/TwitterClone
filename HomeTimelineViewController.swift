@@ -26,10 +26,9 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
   var userImage : UIImage?
   
   
-  
-  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     self.tableView.registerNib(UINib(nibName: "UserImageTableViewCell", bundle: NSBundle.mainBundle())!, forCellReuseIdentifier: "TWEET_CELL")
   
     if screenName != nil {
@@ -46,8 +45,6 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
         if errorDescription == nil {
           self.tweets = tweets
           NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-           
-           
             self.headerNameLabel.text = "Home Timeline"
             self.tableView.reloadData()
           })

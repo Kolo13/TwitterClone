@@ -17,6 +17,7 @@ class SingleTweetViewController: UIViewController {
   @IBOutlet weak var singleTweetLabel: UILabel!
   @IBOutlet weak var singleTweetRetweetLabel: UILabel!
   @IBOutlet weak var singleTweetFavoritedLabel: UILabel!
+  @IBOutlet weak var singleTweetUser: UILabel!
 
   @IBAction func SingleTweetViewControllerButton(sender: UIButton) {
     let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("HOME_VC") as HomeTimelineViewController
@@ -32,6 +33,7 @@ class SingleTweetViewController: UIViewController {
     singleTweetImage.image = selectedTweet?.image
     singleTweetRetweetLabel.text = "\(selectedTweet!.numRetweets)"
     singleTweetFavoritedLabel.text = "\(selectedTweet!.numFavorites)"
+    singleTweetUser.text = selectedTweet?.userName
   }
 
   override func didReceiveMemoryWarning() {
