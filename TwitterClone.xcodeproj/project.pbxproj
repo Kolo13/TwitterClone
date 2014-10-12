@@ -97,8 +97,6 @@
 			children = (
 				8B5FFC0E19E3098A004C1495 /* AppDelegate.swift */,
 				8B5FFC1519E3098A004C1495 /* Main.storyboard */,
-				8BC5D48519EA953900B38392 /* favorite_on.png */,
-				8BC5D48619EA953900B38392 /* retweet_hover.png */,
 				8B5FFC3319E309AB004C1495 /* Controller Layer */,
 				8B5FFC3419E309BB004C1495 /* Model Layer */,
 				8B5FFC3219E3099D004C1495 /* View Layer */,
@@ -113,6 +111,8 @@
 		8B5FFC0C19E3098A004C1495 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8BC5D48619EA953900B38392 /* retweet_hover.png */,
+				8BC5D48519EA953900B38392 /* favorite_on.png */,
 				8B5FFC0D19E3098A004C1495 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -138,6 +138,7 @@
 		8B5FFC3219E3099D004C1495 /* View Layer */ = {
 			isa = PBXGroup;
 			children = (
+				8B5FFC3519E309F2004C1495 /* HomeTimelineViewController.swift */,
 				8B888DE819E7495F007511EC /* SingleTweetViewController.swift */,
 				8BCC15EE19E4A36700FF5596 /* UserImageTableViewCell.swift */,
 				8B888DDE19E71ABD007511EC /* UserImageTableViewCell.xib */,
@@ -148,7 +149,6 @@
 		8B5FFC3319E309AB004C1495 /* Controller Layer */ = {
 			isa = PBXGroup;
 			children = (
-				8B5FFC3519E309F2004C1495 /* HomeTimelineViewController.swift */,
 				8BC3837D19E5B4BB00ED8B7C /* NetworkController.swift */,
 			);
 			name = "Controller Layer";
