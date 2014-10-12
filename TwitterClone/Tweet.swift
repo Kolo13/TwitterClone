@@ -11,16 +11,15 @@ import UIKit
 
 class Tweet {
   
-  var text : String
   var userProfile : NSDictionary
   var userImageString : String
-  var image : UIImage?
-  var avatarImage : UIImage?
+  var screenName : String
   var userName : String
+  var numFavorites : Int
+  var image : UIImage?
   var numRetweets : Int
   var userID : Int
-  var numFavorites : Int
-  var screenName : String
+  var text : String
   
   
   init (tweetInfo : NSDictionary) {
@@ -32,27 +31,20 @@ class Tweet {
     self.userID = tweetInfo["id"] as Int
     self.screenName = userProfile["screen_name"] as String
     self.numFavorites = tweetInfo["favorite_count"] as Int
-  
-    
-    
   }
-  
   
   class func parseJSONDataIntoTweets(rawJSONData : NSData) -> [Tweet]? {
     var error : NSError?
-    if let JSONArray = NSJSONSerialization.JSONObjectWithData(rawJSONData, options: nil, error: &error) as? NSArray {
     
+    if let JSONArray = NSJSONSerialization.JSONObjectWithData(rawJSONData, options: nil, error: &error) as? NSArray {
       var tweets = [Tweet]()
       for JSONDictionary in JSONArray {
         if let tweetDictionary = JSONDictionary as? NSDictionary {
           var newTweet = Tweet(tweetInfo: tweetDictionary)
-          
-          
           tweets.append(newTweet)
         }
       }
-    return tweets
-      
+      return tweets
     }
     return nil
   }
@@ -65,7 +57,6 @@ class Tweet {
     }
     return nil
   }
-
 
 }
 

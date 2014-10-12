@@ -17,68 +17,73 @@ class NetworkController {
   let imageQueue = NSOperationQueue()
  
   init(){
-    
     self.imageQueue.maxConcurrentOperationCount = 6
-    
   }
   
+  
+  
+  
+  func connectAccount() {
+      let accountStore = ACAccountStore()
+      let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
+      
+      accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (granted: Bool, error : NSError!) -> Void in
+        
+        if granted {
+          let accounts = accountStore.accountsWithAccountType(accountType)
+          self.twitterAccount = accounts.first as ACAccount?
+        } else {
+          println("Accout not connected")
+        }
+      }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
   func fetchUserTimeline(screenName :String?, completionHandler : (errorDescription: String?, tweets : [Tweet]?) -> Void) {
-    
     let accountStore = ACAccountStore()
     let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
     
     accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (granted: Bool, error : NSError!) -> Void in
       
-      if granted {
+  if granted {
         let accounts = accountStore.accountsWithAccountType(accountType)
         self.twitterAccount = accounts.first as ACAccount?
-        
-        
-        
-       
         let url = NSURL(string:"https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=\(screenName!)")!
-   
         let twitterRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: nil)
-        twitterRequest.account = self.twitterAccount
         
+        twitterRequest.account = self.twitterAccount
         twitterRequest.performRequestWithHandler({ (data, httpResponse, error) -> Void in
           
           switch httpResponse.statusCode {
-            
-          case 200...299:
-            let tweets = Tweet.parseJSONDataIntoTweets(data)
-            completionHandler(errorDescription: nil, tweets: tweets)
-            println("This is good")
-            
-          case 400...499:
-            completionHandler(errorDescription: "Client fault", tweets: nil)
-            
-          case 500...599:
-            completionHandler(errorDescription: "Server fault", tweets: nil)
-            
-          default:
-            println("Something")
+            case 200...299:
+              let tweets = Tweet.parseJSONDataIntoTweets(data)
+              completionHandler(errorDescription: nil, tweets: tweets)
+              
+              println("This is good")
+            case 400...499:
+              completionHandler(errorDescription: "Client fault", tweets: nil)
+            case 500...599:
+              completionHandler(errorDescription: "Server fault", tweets: nil)
+            default:
+              println("Something")
           }
         })
       }
     }
   }
   
-  
-  
-  
-  
- 
-  
   func fetchHomeTimeline( completionHandler : (errorDescription: String?, tweets : [Tweet]?) -> Void) {
-    
-  
-    
     let accountStore = ACAccountStore()
     let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
     
     accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (granted: Bool, error : NSError!) -> Void in
-
+      
       if granted {
         let accounts = accountStore.accountsWithAccountType(accountType)
         self.twitterAccount = accounts.first as ACAccount?
@@ -92,18 +97,14 @@ class NetworkController {
         twitterRequest.performRequestWithHandler({ (data, httpResponse, error) -> Void in
           
           switch httpResponse.statusCode {
-            
             case 200...299:
               let tweets = Tweet.parseJSONDataIntoTweets(data)
               completionHandler(errorDescription: nil, tweets: tweets)
               println("This is good")
-            
             case 400...499:
               completionHandler(errorDescription: "Client fault", tweets: nil)
-            
             case 500...599:
               completionHandler(errorDescription: "Server fault", tweets: nil)
-            
             default:
               println("Something")
           }
@@ -132,16 +133,16 @@ class NetworkController {
         }
     
       }
-  func downloadUserImageForTweet(tweet : Tweet, completionHandler : (image : UIImage) -> (Void)) {
-    
-    let url = NSURL(string: tweet.userImageString)
-    let imageData = NSData(contentsOfURL: url!)
-    
-    
-    //jump back on the main queu
-//    NSOperationQueue.mainQueue()
-    
-  }
+//  func downloadUserImageForTweet(tweet : Tweet, completionHandler : (image : UIImage) -> (Void)) {
+//    
+//    let url = NSURL(string: tweet.userImageString)
+//    let imageData = NSData(contentsOfURL: url!)
+//    
+//    
+//    //jump back on the main queu
+////    NSOperationQueue.mainQueue()
+//    
+//  }
   
   
   

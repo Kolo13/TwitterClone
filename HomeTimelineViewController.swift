@@ -15,69 +15,57 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
   @IBOutlet weak var headerNameLabel: UILabel!
   @IBOutlet weak var headerPic: UIView!
   @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var headerImage: UIImageView!
  
 
-  
   var tweets : [Tweet]?
   var twitterAccount : ACAccount?
   let networkController = NetworkController()
   var screenName : String?
   var headerName : String?
+  var userImage : UIImage?
+  
+  
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     self.tableView.registerNib(UINib(nibName: "UserImageTableViewCell", bundle: NSBundle.mainBundle())!, forCellReuseIdentifier: "TWEET_CELL")
   
-  
-    
     if screenName != nil {
-      
-    
       self.networkController.fetchUserTimeline(self.screenName!, { (errorDescription, tweets) -> Void in
         self.tweets = tweets
         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
           self.headerNameLabel.text = self.headerName!
+          self.headerImage.image = self.userImage
           self.tableView.reloadData()
-        
-                })
-
-      
-    })
+        })
+      })
     }else{
-      
       self.networkController.fetchHomeTimeline { (errorDescription, tweets) -> Void in
         if errorDescription == nil {
           self.tweets = tweets
-          
-         
           NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-             self.headerNameLabel.text = "Home"
+           
+           
+            self.headerNameLabel.text = "Home Timeline"
             self.tableView.reloadData()
-            
           })
         }else{
           println(errorDescription)
         }
       }
-      
-      
     }
-    
-  
   }
   
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
   
-
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
-      if self.tweets != nil {
-        return self.tweets!.count
-      }else{
-        return 0
-      }
+    if self.tweets != nil {
+      return self.tweets!.count
+    }else{
+      return 0
     }
+  }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("TWEET_CELL", forIndexPath: indexPath) as UserImageTableViewCell
@@ -87,34 +75,29 @@ class HomeTimelineViewController: UIViewController, UITableViewDataSource, UITab
     if tweet.image != nil {
       cell.twitterLabel.text = tweet.text
       cell.twitterLabel.hidden = false
-
       cell.twitterImage.image = tweet.image
     } else {
       networkController.loadImage(tweet, completion: { (image) -> Void in
         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-          cell.twitterLabel.text = tweet.text
-          cell.twitterLabel.hidden = false
-          tweet.image = image
-          cell.twitterImage.image = image
-          
+        cell.twitterLabel.text = tweet.text
+        cell.twitterLabel.hidden = false
+        tweet.image = image
+        cell.twitterImage.image = image
         })
       })
     }
-
-  return cell
-  
+    return cell
   }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let newVC = self.storyboard?.instantiateViewControllerWithIdentifier("SINGLE_VC") as SingleTweetViewController
-      newVC.selectedTweet = self.tweets?[indexPath.row]
-      self.navigationController?.pushViewController(newVC, animated: true)
+    newVC.selectedTweet = self.tweets?[indexPath.row]
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    self.navigationController?.pushViewController(newVC, animated: true)
   }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
-
 }
 
